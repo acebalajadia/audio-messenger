@@ -1,0 +1,37 @@
+{
+    "title": "Audio messenger",
+    "name": "audio-messenger",
+    "version": "0.0.1",
+    "description": "An audio messenger built with Bootstrap",
+    "keywords": [
+        "css",
+        "sass",
+        "html",
+        "responsive",
+        "theme",
+        "template"
+    ],
+    "homepage": "",
+    "bugs": {
+        "url": "",
+        "email": "acebalajadia@gmail.com"
+    },
+    "license": "MIT",
+    "author": "Ace Kwokse Balajadia",
+    "contributors": [
+        "Ace Kwokse Balajadia"
+    ],
+    "repository": {
+        "type": "git",
+        "url": ""
+    },
+    "dependencies": {
+        "bootstrap": "4.1.1",
+        "jquery": "3.3.1"
+    },
+    "devDependencies": {
+        "browser-sync": "2.24.5",
+        "gulp": "^3.9.1",
+        "vue": "^2.5.17"
+    }
+}
