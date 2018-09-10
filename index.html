@@ -61,7 +61,7 @@
                     <br>
                     <br>
                     <div class="row">
-                        <div class="list-group" v-if="recordings.length">
+                        <div class="list-group" v-if="recordings">
                             <h4>Play recordings</h4>
                             <button type="button" class="list-group-item list-group-item-action" v-for="item in recordings" @click="play(item)">
                                 Click to play - {{item.audioUrl}}
@@ -69,13 +69,16 @@
                         </div>
                          
 
-                        <div v-if="recordings.length">
+                     
+                    </div>
+                    <div class="row">
+                        <div v-if="recordings">
                             <h4>Select and combine audio</h4>
                             <div class="custom-control custom-checkbox" v-for="(item,i) in recordings">
                                 <input type="checkbox" class="custom-control-input" :id="'customCheck'+i" v-model="item.isSelected" :checked="item.isSelected">
                                 <label class="custom-control-label" :for="'customCheck'+i">{{item.audioUrl}}</label> - {{item.isSelected}}
                             </div>
-                            <br> 
+                            <br>
                             <button type="button" class="btn btn-secondary" @click="combineAudio">Combine and play</button>
                             <br>
                             <br>
