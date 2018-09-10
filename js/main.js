@@ -5,27 +5,31 @@ new Vue({
         recordings: []
     },
     mounted: function () {
-        this.$nextTick(function () {
-            // localStorage.setItem('audio-messenger-recordings1', '');
-            let savedData = localStorage.getItem('audio-messenger-recordings1');
-            let jsondata;
-            if (savedData) {
-                jsondata = JSON.parse(savedData);
-                var ax = new Audio();
-                ax.src = jsondata.audiob64;
+        this.$nextTick(function () { 
+            var savedDataArr = [];
+            //get index
+            savedDataArr = localStorage.getItem('audio-messenger-saveIndex') ? JSON.parse(localStorage.getItem('audio-messenger-saveIndex')) : [];
+            savedDataArr.forEach(index => { 
+                let savedData = localStorage.getItem(audioMessengerFileStorageName + index);
+                let jsondata;
+                if (savedData) {
+                    jsondata = JSON.parse(savedData);
+                    var ax = new Audio();
+                    ax.src = jsondata.audiob64;
 
+                    let recording = {
+                        audiob64: jsondata.audiob64,
+                        audioUrl: 'test',
+                        audio: ax
+                    }
 
-                let recording = {
-                    audiob64: jsondata.audiob64,
-                    audioUrl: 'test',
-                    audio:ax
+                    this.recordings.push(recording);
+
                 }
+            });
+            
 
-                this.recordings.push(recording);
 
-            }
- 
-          
         })
     },
     methods: {
@@ -52,12 +56,11 @@ new Vue({
                         audioUrl: 'test'
                     };
 
-                    localStorage.setItem('audio-messenger-recordings1', JSON.stringify(audioForSaving));
+                    saveToLocalStorage(JSON.stringify(audioForSaving))
 
                     var ax = new Audio();
                     ax.src = reader.result.toString();
-                    ax.play(); 
- 
+                    ax.play();
 
                     let recording = {
                         audiob64: reader.result.toString(),
@@ -71,7 +74,7 @@ new Vue({
 
                 // Start reading the blob as text.
                 reader.readAsDataURL(audio.audioBlob);
- 
+
 
             })();
 
@@ -99,7 +102,20 @@ new Vue({
         },
 
     }
-})
+});
+
+var audioMessengerFileStorageName = 'audio-messenger-recordings';
+
+function saveToLocalStorage(jsondata) {
+    var savedDataArr = [];
+    //get index
+    savedDataArr = localStorage.getItem('audio-messenger-saveIndex') ? JSON.parse(localStorage.getItem('audio-messenger-saveIndex')) : [];
+    var savedIndex = savedDataArr.length,
+        newIndex = savedIndex + 1;
+    savedDataArr.push(newIndex);
+    localStorage.setItem('audio-messenger-saveIndex', JSON.stringify(savedDataArr));
+    localStorage.setItem(audioMessengerFileStorageName + newIndex, jsondata);
+}
 
 
 const recordAudio = () =>
