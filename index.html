@@ -31,7 +31,7 @@
                     aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
+                <!-- <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item active">
                             <a class="nav-link" href="#">Home
@@ -39,7 +39,7 @@
                             </a>
                         </li>
                     </ul>
-                </div>
+                </div> -->
             </div>
         </nav>
 
@@ -61,27 +61,41 @@
                     <br>
                     <br>
                     <div class="row">
-                        <div class="list-group" v-if="recordings">
+                        <div class="col">
                             <h4>Play recordings</h4>
-                            <button type="button" class="list-group-item list-group-item-action" v-for="item in recordings" @click="play(item)">
-                                Click to play - {{item.audioUrl}}
-                            </button> 
                         </div>
-                         
-
-                     
                     </div>
                     <div class="row">
-                        <div v-if="recordings">
+                        <div class="col">
+                            <ul class="list-group" v-if="recordings">
+                                <li class="list-group-item d-flex justify-content-between align-items-center" v-for="(item,index) in recordings">
+                                    {{item.id}}
+                                    <a class="btn badge badge-primary badge-pill" @click="play(item)">Play</a>
+                                    <a class="btn badge badge-danger badge-pill" @click="deleteRecording(item,index)">Delete</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
                             <h4>Select and combine audio</h4>
-                            <div class="custom-control custom-checkbox" v-for="(item,i) in recordings">
-                                <input type="checkbox" class="custom-control-input" :id="'customCheck'+i" v-model="item.isSelected" :checked="item.isSelected">
-                                <label class="custom-control-label" :for="'customCheck'+i">{{item.audioUrl}}</label> - {{item.isSelected}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div v-if="recordings">
+
+                                <div class="custom-control custom-checkbox" v-for="(item,i) in recordings">
+                                    <input type="checkbox" class="custom-control-input" :id="'customCheck'+i" v-model="item.isSelected" :checked="item.isSelected">
+                                    <label class="custom-control-label" :for="'customCheck'+i">{{item.id}}</label>
+                                </div>
+                                <br>
+                                <button type="button" class="btn btn-secondary" @click="combineAudio">Combine and play</button>
+                                <br>
+                                <br>
                             </div>
-                            <br>
-                            <button type="button" class="btn btn-secondary" @click="combineAudio">Combine and play</button>
-                            <br>
-                            <br>
                         </div>
                     </div>
                     <!-- /.row -->
@@ -98,7 +112,7 @@
         <!-- Footer -->
         <footer class="py-5 bg-dark">
             <div class="container">
-                <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+                <p class="m-0 text-center text-white">Copyright &copy; StaffLeverage 2018</p>
             </div>
             <!-- /.container -->
         </footer>
