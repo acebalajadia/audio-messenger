@@ -39,7 +39,7 @@ new Vue({
                 const recorder = await recordAudio();
                 this.isRecording = true;
                 recorder.start();
-                await sleep(1000);
+                await sleep(3000);
                 const audio = await recorder.stop();
 
                 // audio.play();
@@ -49,8 +49,7 @@ new Vue({
                 const reader = new FileReader();
 
                 // This fires after the blob has been read/loaded.
-                reader.addEventListener('loadend', (e) => {
-                    const text = e.srcElement.result;
+                reader.addEventListener('loadend', (e) => { 
                     let audioForSaving = {
                         audiob64: reader.result.toString(),
                         audioUrl: 'test'
